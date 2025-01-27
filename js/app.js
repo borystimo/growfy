@@ -38,7 +38,11 @@ import * as myMenuCase from "./menucase.js"
 // Light / Dark mode
 import * as lightDarkMode  from "./light-dark-mod.js"
 
+// Accordion / Spollers
+import * as AccordionSpollers  from "./accordion-spollers.js"
 
+// 3d Cards
+import * as ThreeDcards  from "./3dcard.js"
 
 
 

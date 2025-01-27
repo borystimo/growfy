@@ -35,6 +35,34 @@
 ? Розкоментувати, якщо світла тема за замовченням
 */
 
+/*
+ :root {
+	--color-bg-body: #fff;
+	--color-body: #000; // колір шрифту за замовчаннням з макету
+	--color-white: #000;
+	--color-grey: #81818B;
+	--color-blue: #3D96F4;
+	--color-bg-grey: 129, 129, 139;
+	--color-bg-black: 255, 255, 255;
+	--box-shadow: 0px 0px 30px #000;
+	--color-white-nonmodal: #cfcfcf;
+	--color-white-btn: #fff;
+ }
+
+.darkstyle {
+	--color-bg-body: #0d0d11;
+	--color-body: #9C9C9C; // колір шрифту за замовчаннням з макету
+	--color-white: #fff;
+	--color-grey: #81818B;
+	--color-blue: #3D96F4;
+	--color-bg-grey: 129, 129, 139;
+	--color-bg-black: 0, 0, 0;
+	--box-shadow: 0px 0px 30px #fff;
+	--color-white-btn: #fff;
+	--color-white-nonmodal: #fff;
+}
+*/
+
 /*Обнуление*/
 
 * {
@@ -690,6 +718,8 @@ body {
 }
 
 .dialog-non-modal {
+  position: relative;
+  z-index: 4;
   text-align: center;
   width: 25rem;
   padding: 3.125rem;
@@ -800,41 +830,97 @@ body {
   background-color: #0e529b;
 }
 
-.cart-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  color: var(--color-white);
+.spoller {
+  /* При активном состоянии (открытом спойлере) */
+  /* Другая анимация плюса
+   Раскоментировать если нужно другая анимация плюса
+    &._init &__title._active::after {
+     opacity: 0; // Скрываем вертикальную линию
+
+     Закоментировать 
+   &._init &__title._active::after {
+     transform: rotate(0deg); // Превращаем в горизонтальную линию (минус)
+  }
+
+   */
 }
 
-.cart-header__text {
+.spoller__item {
+  background-color: #868588;
+}
+
+.spoller__item:not(:last-child) {
+  margin-bottom: 0.625rem;
+}
+
+.spoller__title {
+  width: 100%;
+  text-align: left;
   font-size: 1.125rem;
-  line-height: 1.6;
-  letter-spacing: 0.06rem;
+  background-color: transparent;
+  color: #fff;
+  position: relative;
+  padding: 0.625rem;
 }
 
-.cart-header__text:not(:last-child) {
-  margin-right: 0.3125rem;
+.spoller__content {
+  line-height: 1.3;
+  color: #fff;
+  overflow: hidden;
+  -webkit-transition: height 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+  transition: height 0.3s ease, margin 0.3s ease, padding 0.3s ease;
 }
 
-.cart-header__quatity {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  height: 1.875rem;
-  width: 1.875rem;
-  border-radius: 1.875rem;
-  background: rgba(129, 129, 139, 0.3);
-  font-size: 0.875rem;
+.spoller__text {
+  padding-bottom: 0.625rem;
+  padding-inline: 0.625rem;
+}
+
+.spoller._init .spoller__title {
+  padding: 0.625rem 2.5rem 0.625rem 0.625rem;
+  cursor: pointer;
+}
+
+.spoller._init .spoller__title::before,
+.spoller._init .spoller__title::after {
+  content: "";
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  right: 0.625rem;
+  width: 1.25rem;
+  height: 0.0625rem;
+  -webkit-transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+  transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, -webkit-transform 0.3s ease;
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.spoller._init .spoller__title::before {
+  opacity: 1;
+}
+
+.spoller._init .spoller__title::after {
+  -webkit-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  opacity: 1;
+}
+
+.spoller._init .spoller__title._active::before {
+  opacity: 0;
+}
+
+.spoller._init .spoller__title._active::after {
+  -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+          transform: rotate(0deg);
 }
 
 .ratingjs {
@@ -2002,6 +2088,209 @@ body._touch .menu__item._active .menu__arrow {
   margin-bottom: clamp(0.625rem, 0.625rem + 15 * (100vw - 20rem) / (1512 - 320), 1.5625rem);
 }
 
+.page__spollerbox {
+  padding-bottom: clamp(2.5rem, 2.5rem + 56 * (100vw - 20rem) / (1512 - 320), 6rem);
+}
+
+.spollerbox__header:not(:last-child) {
+  margin-bottom: clamp(2rem, 2rem + 32 * (100vw - 20rem) / (1512 - 320), 4rem);
+}
+
+.spollerbox__label:not(:last-child) {
+  margin-bottom: clamp(0.625rem, 0.625rem + 15 * (100vw - 20rem) / (1512 - 320), 1.5625rem);
+}
+
+.spoller-spollerbox {
+  /* При активном состоянии (открытом спойлере) */
+  /* Другая анимация плюса
+   Раскоментировать если нужно другая анимация плюса
+    &._init &__title._active::after {
+     opacity: 0; // Скрываем вертикальную линию
+
+     Закоментировать 
+   &._init &__title._active::after {
+     transform: rotate(0deg); // Превращаем в горизонтальную линию (минус)
+  }
+
+   */
+}
+
+.spoller-spollerbox:not(:last-child) {
+  padding-bottom: 1.875rem;
+}
+
+.spoller-spollerbox_first .spoller-spollerbox__item {
+  background-color: #77608d;
+}
+
+.spoller-spollerbox_second .spoller-spollerbox__item {
+  background-color: #794f45;
+}
+
+.spoller-spollerbox_three .spoller-spollerbox__item {
+  background-color: #7a956b;
+}
+
+.spoller-spollerbox__item:not(:last-child) {
+  margin-bottom: 0.625rem;
+}
+
+.spoller-spollerbox__title {
+  width: 100%;
+  text-align: left;
+  font-size: 1.125rem;
+  background-color: transparent;
+  color: #fff;
+  position: relative;
+  padding: 0.625rem;
+}
+
+.spoller-spollerbox__content {
+  line-height: 1.3;
+  color: #fff;
+  overflow: hidden;
+  -webkit-transition: height 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+  transition: height 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+}
+
+.spoller-spollerbox__text {
+  padding-bottom: 0.625rem;
+  padding-inline: 0.625rem;
+}
+
+.spoller-spollerbox._init .spoller-spollerbox__title {
+  padding: 0.625rem 2.5rem 0.625rem 0.625rem;
+  cursor: pointer;
+}
+
+.spoller-spollerbox._init .spoller-spollerbox__title::before,
+.spoller-spollerbox._init .spoller-spollerbox__title::after {
+  content: "";
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  right: 0.625rem;
+  width: 1.25rem;
+  height: 0.0625rem;
+  -webkit-transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+  transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, -webkit-transform 0.3s ease;
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.spoller-spollerbox._init .spoller-spollerbox__title::before {
+  opacity: 1;
+}
+
+.spoller-spollerbox._init .spoller-spollerbox__title::after {
+  -webkit-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  opacity: 1;
+}
+
+.spoller-spollerbox._init .spoller-spollerbox__title._active::before {
+  opacity: 0;
+}
+
+.spoller-spollerbox._init .spoller-spollerbox__title._active::after {
+  -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+
+.page__cards {
+  padding-bottom: clamp(2.5rem, 2.5rem + 56 * (100vw - 20rem) / (1512 - 320), 6rem);
+}
+
+.cards__header:not(:last-child) {
+  margin-bottom: clamp(2rem, 2rem + 32 * (100vw - 20rem) / (1512 - 320), 4rem);
+}
+
+.cards__label:not(:last-child) {
+  margin-bottom: clamp(0.625rem, 0.625rem + 15 * (100vw - 20rem) / (1512 - 320), 1.5625rem);
+}
+
+.cards__items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.875rem;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.item-cards {
+  width: 21.25rem;
+  height: 15.625rem;
+  cursor: pointer;
+  position: relative;
+  -webkit-perspective: 37.5rem;
+          perspective: 37.5rem;
+}
+
+.item-cards.is-flipped .front-item-cards {
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+  opacity: 0;
+}
+
+.item-cards.is-flipped .back-item-cards {
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+  opacity: 1;
+}
+
+.front-item-cards,
+.back-item-cards {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  border-radius: 0.625rem;
+  padding-block: 1.5625rem;
+  padding-inline: 1.5625rem;
+  color: #fff;
+  -webkit-transition: opacity 0.4s ease, -webkit-transform 0.6s ease;
+  transition: opacity 0.4s ease, -webkit-transform 0.6s ease;
+  transition: transform 0.6s ease, opacity 0.4s ease;
+  transition: transform 0.6s ease, opacity 0.4s ease, -webkit-transform 0.6s ease;
+}
+
+.front-item-cards {
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+  background-color: rgb(26, 156, 106);
+  opacity: 1;
+  /*
+  ? Ограничение по высоте и скролл внутри блока текста. Если это не нужно, закомментируйте CSS-код для &__text 
+  */
+}
+
+.front-item-cards__title:not(:last-child) {
+  margin-bottom: 0.625rem;
+}
+
+.back-item-cards {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  background-color: rgb(3, 141, 184);
+  opacity: 0;
+}
+
+.back-item-cards__title:not(:last-child) {
+  margin-bottom: 0.625rem;
+}
+
 /*==============================================*/
 
 @media (min-width: 28.1875em) {
@@ -2476,18 +2765,6 @@ body._touch .menu__item._active .menu__arrow {
     padding: 0.625rem 0.9375rem;
   }
 
-  .cart-header__text {
-    display: none;
-  }
-
-  .cart-header__quatity {
-    width: 2.5rem;
-    height: 2.8125rem;
-    border-radius: 0rem;
-    padding-top: 0.75rem;
-    background: url("../img/header/iconizer-cart.svg") center/2.8125rem no-repeat;
-  }
-
   .header__container {
     -webkit-column-gap: 0.75rem;
        -moz-column-gap: 0.75rem;
@@ -2620,10 +2897,6 @@ body._touch .menu__item._active .menu__arrow {
     -webkit-transform: scale(1.1);
         -ms-transform: scale(1.1);
             transform: scale(1.1);
-  }
-
-  .cart-header__text:hover {
-    text-decoration: underline;
   }
 
   .menu__link:hover {
